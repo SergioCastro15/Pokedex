@@ -71,7 +71,7 @@ export default {
         return this.allPokemon.filter(pokemon => pokemon.name.includes(this.namePokemon));
       }
 
-      if( this.checkedTypes ) {
+      if( this.filterPokemonSelected.length > 0 ) {
         return this.getPokemonsChecked;
       }
       return this.allPokemon;
@@ -98,22 +98,6 @@ export default {
     filterPokemonSelected() {
       return this.getType.filter(type => this.types[type] === true);
     },
-    checkedTypes() {
-      const {
-        fire,
-        water,
-        flying,
-        normal,
-        poison,
-        ground,
-        grass,
-        rock,
-        bug,
-        fighting
-      } = this.types;
-
-      return fire || water || flying || normal || poison || ground || grass ||rock || bug || fighting;
-    }
   }
 }
 </script>
