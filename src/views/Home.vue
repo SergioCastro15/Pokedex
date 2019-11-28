@@ -61,14 +61,19 @@ export default {
   beforeMount() {
     this.$store.dispatch('getListOfPokemon');
   },
-
   computed: {
     allPokemon() {
       return this.$store.state.pokemon;
     },
+    getPokemonWanted() {
+      return this.allPokemon.filter(pokemon => pokemon.name.includes(this.namePokemon));
+    },
     getPokemon() {
       if( this.namePokemon.length > 0 ) {
-        return this.allPokemon.filter(pokemon => pokemon.name.includes(this.namePokemon));
+        if( this.filterPokemonSelected.length > 0 ) {
+            return this.getPokemonsChecked;
+        }
+        return this.getPokemonWanted;
       }
 
       if( this.filterPokemonSelected.length > 0 ) {
@@ -83,7 +88,7 @@ export default {
     getPokemonsChecked() {
       const pokemonSelected = this.filterPokemonSelected;
 
-      const pokemonFiltered =  this.allPokemon.filter(element => {
+      const pokemonFiltered =  this.getPokemonWanted.filter(element => {
         let isTypeChecked = false;
 
         element.types.forEach(typePokemon => {
